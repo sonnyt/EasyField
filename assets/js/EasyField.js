@@ -30,6 +30,8 @@ function EasyField () {
 
             fields[x].setAttribute('data-id', id);
 
+            fields[x].style.display = 'none';
+
             var field = this.build(fields[x]);
 
             this.inputs[tags[i]].push(fields[x]);
