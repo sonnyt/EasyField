@@ -1,4 +1,4 @@
-function Inputly () {
+function EasyField () {
     this.inputs = {
         button: [],
         textarea: [],
@@ -30,16 +30,16 @@ function Inputly () {
 
             fields[x].setAttribute('data-id', id);
 
-            var inputly = this.build(fields[x]);
+            var field = this.build(fields[x]);
 
             this.inputs[tags[i]].push(fields[x]);
 
-            document.body.insertBefore(inputly, fields[x]);
+            document.body.insertBefore(field, fields[x]);
         }
     }
 }
 
-Inputly.prototype.refresh = function() {
+EasyField.prototype.refresh = function() {
     console.log('test');
 };
 
@@ -48,34 +48,27 @@ Inputly.prototype.refresh = function() {
  * @param  {Object} input Input object
  * @return {Object}       New built document object
  */
-Inputly.prototype.build = function(input) {
+EasyField.prototype.build = function(input) {
     if (!input && typeof input != 'object') {
         return;
     }
 
     // input wrapper
-    var inputly = document.createElement('div');
-        inputly.className = 'inputly';
-        inputly.setAttribute('data-id', input.dataset.id);
-        inputly.className += ' '+input.type;
+    var efield = document.createElement('div');
+        efield.className = 'easy-field '+input.type;
+        efield.setAttribute('data-id', input.dataset.id);
 
     // textarea and textbox
     if (input.type === 'textarea' || input.type === 'text' || input.type === 'password') {
-        inputly.contentEditable = true;
+        efield.contentEditable = true;
     }
 
+    // !! There should be a better alternative
     if (input.type === 'password') {
-        // var css = {
-        //     '-webkit-text-security': 'disc',
-        //        '-moz-text-security': 'disc',
-        //          '-o-text-security': 'disc',
-        //             'text-security': 'disc'
-        // };
-
-        inputly.style.webkitTextSecurity = 'disc';
-        inputly.style.mozTextSecurity = 'disc';
-        inputly.style.OTextSecurity = 'disc';
-        inputly.style.msTextSecurity = 'disc';
+        efield.style.webkitTextSecurity = 'disc';
+        efield.style.mozTextSecurity = 'disc';
+        efield.style.OTextSecurity = 'disc';
+        efield.style.msTextSecurity = 'disc';
     }
 
     // select box
@@ -101,34 +94,34 @@ Inputly.prototype.build = function(input) {
         }
 
         // Append to the wrapper
-        inputly.appendChild(span);
-        inputly.appendChild(ul);
+        efield.appendChild(span);
+        efield.appendChild(ul);
     }
 
-    inputly = this.addEvent(input, inputly);
+    efield = this.addEvent(input, efield);
 
-    return inputly;
+    return efield;
 };
 
 /**
  * Add events
  * @param  {Object} input   Input object
- * @param  {Object} inputly Built input object
+ * @param  {Object} efield  Built input object
  * @return {Object}         Built input object with event handler
  */
-Inputly.prototype.addEvent = function(input, inputly) {
+EasyField.prototype.addEvent = function(input, efield) {
     if (input.type === 'textarea' || input.type === 'text') {
-        inputly.onkeyup = function () {
-            input.value = inputly.innerText;
+        efield.onkeyup = function () {
+            input.value = efield.innerText;
         };
     }
 
     if (input.type === 'password') {
-        inputly.onkeyup = function () {
-            input.value = inputly.innerText;
-            inputly.value = input.value;
+        efield.onkeyup = function () {
+            input.value = efield.innerText;
+            efield.value = input.value;
         };
     }
 
-    return inputly;
+    return efield;
 };

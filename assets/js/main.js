@@ -1,3 +1,3 @@
 (function () {
-    var inputs = new Inputly();
+    var inputs = new EasyField();
 }());
