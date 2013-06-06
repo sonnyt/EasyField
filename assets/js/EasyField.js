@@ -3,7 +3,7 @@
  * Author: Sonny T. <hi@sonnyt.com>, sonnyt.com
  */
 
-function EasyField () {
+function EasyField (container) {
     this.inputs = {
         button: [],
         textarea: [],
@@ -11,8 +11,9 @@ function EasyField () {
         input: []
     };
 
-    var body = document.body,
-        tags = ['input', 'textarea', 'select', 'button'];
+    this.container = container || document.body;
+
+    var tags = ['input', 'textarea', 'select', 'button'];
 
     // !! Not sure if this is needed
     Node.prototype.getElementsByData = function(val) {
@@ -29,7 +30,7 @@ function EasyField () {
     };
 
     for (var i = tags.length; i--;) {
-        var fields = body.getElementsByTagName(tags[i]);
+        var fields = this.container.getElementsByTagName(tags[i]);
 
         for (var x = fields.length; x--;) {
             var id = Math.floor(Math.random() * 1000000000);
