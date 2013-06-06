@@ -100,6 +100,7 @@ EasyField.prototype.build = function(input) {
     // text fields
     if (input.type === 'textarea' || input.type === 'text' || input.type === 'password') {
         efield.contentEditable = true;
+        efield.innerHTML = input.value || '<span class="placeholder">'+ input.placeholder +'</span>';
     }
 
     // !! There should be a better alternative
