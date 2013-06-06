@@ -1,3 +1,8 @@
+/**
+ * EasyField: Sexify input fields
+ * Author: Sonny T. <hi@sonnyt.com>, sonnyt.com
+ */
+
 function EasyField () {
     this.inputs = {
         button: [],
