@@ -42,11 +42,15 @@ function EasyField () {
 
             this.inputs[tags[i]].push(fields[x]);
 
-            document.body.insertBefore(field, fields[x]);
+
+            fields[x].parentNode.insertBefore(field, fields[x]);
         }
     }
 }
 
+/**
+ * Refreshes all the dom elements by adding new ones
+ */
 EasyField.prototype.refresh = function() {
     console.log('test');
 };
@@ -66,7 +70,7 @@ EasyField.prototype.build = function(input) {
         efield.className = 'easy-field '+input.type;
         efield.setAttribute('data-id', input.dataset.id);
 
-    // textarea and textbox
+    // text fields
     if (input.type === 'textarea' || input.type === 'text' || input.type === 'password') {
         efield.contentEditable = true;
     }
