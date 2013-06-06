@@ -14,6 +14,7 @@ function EasyField () {
     var body = document.body,
         tags = ['input', 'textarea', 'select', 'button'];
 
+    // !! Not sure if this is needed
     Node.prototype.getElementsByData = function(val) {
         var matches = [],
             elements = this.getElementsByTagName('*');
