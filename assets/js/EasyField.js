@@ -1,5 +1,5 @@
 /**
- * EasyField: Sexify input fields
+ * EasyField: Easy Form Element styling.
  * Author: Sonny T. <hi@sonnyt.com>, sonnyt.com
  */
 
@@ -11,6 +11,11 @@ function EasyField (container) {
         input: []
     };
 
+    if (container && typeof container != 'object') {
+        throw 'Container must be an Object element.';
+    }
+
+    // if container is empty use body element
     this.container = container || document.body;
 
     var tags = ['input', 'textarea', 'select', 'button'];
@@ -29,6 +34,7 @@ function EasyField (container) {
         return matches;
     };
 
+    // loop through DOM elements
     for (var i = tags.length; i--;) {
         var fields = this.container.getElementsByTagName(tags[i]);
 
@@ -53,7 +59,7 @@ function EasyField (container) {
  * Refreshes all the dom elements by adding new ones
  */
 EasyField.prototype.refresh = function() {
-    console.log('test');
+
 };
 
 /**
@@ -62,8 +68,8 @@ EasyField.prototype.refresh = function() {
  * @return {Object}       New built document object
  */
 EasyField.prototype.build = function(input) {
-    if (!input && typeof input != 'object') {
-        return;
+    if (input && typeof input != 'object') {
+        throw 'Input must be an Object element.';
     }
 
     // input wrapper
