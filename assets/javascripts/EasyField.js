@@ -4,6 +4,7 @@
  */
 
 function EasyField (container) {
+    "use strict";
     this.fields = {
         button: [],
         textarea: [],
@@ -171,7 +172,7 @@ EasyField.prototype.addEvent = function(input, efield) {
         };
 
         efield.onfocus = function () {
-            for (var i = 0, len = this.children.length; i < len; i++) {
+            for (var i = this.children.length; i--;) {
                 if (this.children[i].className === 'placeholder') {
                     this.removeChild(this.children[i]);
                 }
@@ -208,7 +209,7 @@ EasyField.prototype.addEvent = function(input, efield) {
 
                 this.getElementsByTagName('span')[0].innerHTML = e.target.innerHTML;
 
-                for (var i = 0, len = input.options.length; i < len; i++) {
+                for (var i = input.options.length; i--;) {
                     if (input.options[i].value === e.target.dataset.value) {
                         input.selectedIndex = i;
 
