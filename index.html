@@ -2,37 +2,47 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Inputly</title>
+    <title>EasyField</title>
 
     <!-- CSS -->
-    <link rel="stylesheet" href="assets/themes/theme-01/style.css" type="text/css" media="all">
+    <link rel="stylesheet" href="assets/stylesheets/style.css" type="text/css" media="all">
+    <link rel="stylesheet" href="assets/stylesheets/themes/flat.css" type="text/css" media="all">
 </head>
 <body>
-    <input type="text" value="" placeholder="This is a placeholder">
-    <input type="text" value="test2222">
-    <input type="password" value="test2222">
+    <div class="container_24">
+        test
+        <div class="demo">
+            <div class="grid_11">
+                <form method="post" action="#">
+                    <input type="text" name="name" placeholder="Full Name" />
+                    <input type="text" name="email" placeholder="Email" />
+                    <select name="gender">
+                        <option value="make">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </form>
+            </div>
+            <div class="grid_2"></div>
+            <div class="grid_11">
+                <form method="post" action="#" id="result">
+                    <input type="text" name="name" placeholder="Full Name" />
+                    <input type="text" name="email" placeholder="Email" />
+                    <select name="gender">
+                        <option value="make">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </form>
+            </div>
+        </div>
+    </div>
 
-    <textarea>sdfsdfsdfs</textarea>
+    <script type="text/javascript" src="assets/javascripts/EasyField.js"></script>
+    <script type="text/javascript">
+        (function () {
+            var example = document.getElementById('result');
 
-    <button>submit</button>
-
-    <select>
-        <option value="teeee">DSfjknsdkj fnsdfn ksjdnfkjsd</option>
-        <option value="teeees" selected>DSfjkn</option>
-    </select>
-
-
-    <h3>Theme 01</h3>
-    <form action="" class="theme-01">
-        <select>
-            <option value="va0">-- Please Select --</option>
-            <option value="va1">No this one</option>
-            <option value="va2" selected>This one</option>
-        </select>
-    </form>
-
-
-    <script type="text/javascript" src="assets/js/EasyField.js"></script>
-    <script type="text/javascript" src="assets/js/main.js"></script>
+            new EasyField(example);
+        }());
+    </script>
 </body>
 </html>

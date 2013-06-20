@@ -4,14 +4,14 @@
  */
 
 function EasyField (container) {
-    this.inputs = {
+    this.fields = {
         button: [],
         textarea: [],
         select: [],
         input: []
     };
 
-    if (container && typeof container != 'object') {
+    if (container && typeof container !== 'object') {
         throw 'Container must be an Object element.';
     }
 
@@ -19,20 +19,6 @@ function EasyField (container) {
     this.container = container || document.body;
 
     var tags = ['input', 'textarea', 'select', 'button'];
-
-    // !! Not sure if this is needed
-    Node.prototype.getElementsByData = function(val) {
-        var matches = [],
-            elements = this.getElementsByTagName('*');
-
-        for (var i = 0, len = elements.length; i < len; i++) {
-            if (elements[i].getAttribute(val)) {
-                matches.push(elements[i]);
-            }
-        }
-
-        return matches;
-    };
 
     // loop through DOM elements
     for (var i = tags.length; i--;) {
@@ -43,11 +29,11 @@ function EasyField (container) {
 
             fields[x].setAttribute('data-id', id);
 
-            // fields[x].style.display = 'none';
+            fields[x].style.display = 'none';
 
             var field = this.build(fields[x]);
 
-            this.inputs[tags[i]].push(fields[x]);
+            this.fields[tags[i]].push(new Array(fields[x], field));
 
 
             fields[x].parentNode.insertBefore(field, fields[x]);
@@ -64,14 +50,31 @@ EasyField.prototype.utils = {
      * Remove class of an element
      * @param  {Object} element One or more elements
      */
-    removeClass: function (element) {
+    removeClass: function (element, className) {
         if (!element) {
             throw 'Atleast one elment must be provided.';
         }
 
-        for (var i = 0, len = element.length; i < len; i++) {
-            element[i].className = '';
+        var reg = new RegExp('(\\s|^)' + className + '(\\s|$)');
+
+        if (element.length) {
+            for (var i = 0, len = element.length; i < len; i++) {
+                if (element[i].className) {
+                    element[i].className = element[i].className.replace(reg, '');
+                }
+            }
+        } else {
+            element.className = element.className.replace(reg, '');
         }
+    },
+
+    /**
+     * Check if element has class
+     * @param  {Object} element One or more elements
+     * @return {Boolean}        True if element does have class, false if it doesn't
+     */
+    hasClass: function (element, className) {
+        return element.className && new RegExp("(^|\\s)" + className + "(\\s|$)").test(element.className);
     }
 };
 
@@ -88,7 +91,7 @@ EasyField.prototype.refresh = function() {
  * @return {Object}       New built document object
  */
 EasyField.prototype.build = function(input) {
-    if (input && typeof input != 'object') {
+    if (input && typeof input !== 'object') {
         throw 'Input must be an Object element.';
     }
 
@@ -96,6 +99,7 @@ EasyField.prototype.build = function(input) {
     var efield = document.createElement('div');
         efield.className = 'easy-field '+input.type;
         efield.setAttribute('data-id', input.dataset.id);
+        efield.setAttribute('data-name', input.name);
 
     // text fields
     if (input.type === 'textarea' || input.type === 'text' || input.type === 'password') {
@@ -140,6 +144,11 @@ EasyField.prototype.build = function(input) {
         efield.appendChild(ul);
     }
 
+    // input is checked
+    if (input.checked) {
+        efield.className += ' selected';
+    }
+
     efield = this.addEvent(input, efield);
 
     return efield;
@@ -158,6 +167,21 @@ EasyField.prototype.addEvent = function(input, efield) {
     if (input.type === 'textarea' || input.type === 'text') {
         efield.onkeyup = function () {
             input.value = this.innerText;
+            this.value = this.innerText;
+        };
+
+        efield.onfocus = function () {
+            for (var i = 0, len = this.children.length; i < len; i++) {
+                if (this.children[i].className === 'placeholder') {
+                    this.removeChild(this.children[i]);
+                }
+            }
+        };
+
+        efield.onblur = function () {
+            if (!this.innerText || this.innerHTML === '<br>') {
+                this.innerHTML = '<span class="placeholder">'+ input.placeholder +'</span>';
+            }
         };
     }
 
@@ -170,10 +194,15 @@ EasyField.prototype.addEvent = function(input, efield) {
 
     // selectbox event
     if (input.type === 'select-one') {
-        efield.onclick = function (e) {            
+        efield.onclick = function (e) {
             if (e.target.tagName.toLowerCase() === 'li') {
                 var li = this.getElementsByTagName('li');
-                scope.utils.removeClass(li);
+
+                scope.utils.removeClass(li, 'selected');
+
+                if(scope.utils.hasClass(li, 'selected')) {
+                    return;
+                }
 
                 e.target.className = 'selected';
 
@@ -186,6 +215,41 @@ EasyField.prototype.addEvent = function(input, efield) {
                         break;
                     }
                 }
+            }
+        };
+    }
+
+    // readio button events
+    if (input.type === 'radio') {
+        efield.onclick = function () {
+            if (input.checked) {
+                return;
+            }
+
+            var sibling = scope.fields.input.filter(function (field) {
+                return field[0].type === 'radio' && field[1].dataset.name === efield.dataset.name && field[0].form === input.form;
+            });
+
+            for (var i = 0, len = sibling.length; i < len; i++) {
+                scope.utils.removeClass(sibling[i][1], 'selected');
+            }
+
+            this.className += ' selected';
+
+            input.checked = true;
+        };
+    }
+
+    // checkbox event
+    if (input.type === 'checkbox') {
+        efield.onclick = function () {
+            if (input.checked) {
+                scope.utils.removeClass(efield, 'selected');
+
+                input.checked = false;
+            } else {
+                efield.className += ' selected';
+                input.checked = true;
             }
         };
     }

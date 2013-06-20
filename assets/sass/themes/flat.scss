@@ -1,0 +1,45 @@
+.easy-field {
+    margin-bottom: 5px;
+    display: inline-block;
+
+    &.text {
+        padding: 10px;
+        border: 1px solid #ccc;
+        display: block;
+        border-radius: 6px;
+        outline: none;
+
+        .placeholder {
+            color: #ccc;
+        }
+    }
+
+    &.select-one {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        display: block;
+
+        &:hover {
+            ul {
+                display: block;
+            }
+        }
+
+        ul {
+            margin-top: 10px;
+            display: none;
+
+            li {
+                padding-left: 10px;
+                margin-bottom: 2px;
+                cursor: pointer;
+                
+                &:hover, &.selected {
+                    background: #eee;
+                    border-radius: 6px;
+                }
+            }
+        }
+    }
+}
