@@ -14,23 +14,31 @@
         <div class="demo">
             <div class="grid_11">
                 <form method="post" action="#">
-                    <input type="text" name="name" placeholder="Full Name" />
-                    <input type="text" name="email" placeholder="Email" />
+                    <input type="text" name="name" placeholder="Full Name" /> <br />
+                    <input type="text" name="email" placeholder="Email" /> <br />
                     <select name="gender">
                         <option value="make">Male</option>
                         <option value="female">Female</option>
-                    </select>
+                    </select><br />
+                    <input type="radio" name="group" value="developer"> Developer
+                    <input type="radio" name="group" value="designer"> Designer <br />
+                    <textarea name="message" placeholder="Tell us little about yourself"></textarea> <br />
                 </form>
             </div>
             <div class="grid_2"></div>
             <div class="grid_11">
                 <form method="post" action="#" id="result">
-                    <input type="text" name="name" placeholder="Full Name" />
-                    <input type="text" name="email" placeholder="Email" />
+                    <input type="text" name="name" placeholder="Full Name" /> <br />
+                    <input type="text" name="email" placeholder="Email" /> <br />
                     <select name="gender">
                         <option value="make">Male</option>
                         <option value="female">Female</option>
-                    </select>
+                    </select><br />
+                    <div>
+                        <input type="radio" name="group" value="developer"> Developer
+                        <input type="radio" name="group" value="designer"> Designer
+                    </div> <br />
+                    <textarea name="message" placeholder="Tell us little about yourself"></textarea> <br />
                 </form>
             </div>
         </div>
@@ -41,7 +49,7 @@
         (function () {
             var example = document.getElementById('result');
 
-            new EasyField(example);
+            var easyField = new EasyField(example);
         }());
     </script>
 </body>
