@@ -3,34 +3,79 @@
   margin-bottom: 5px;
   display: inline-block; }
   /* line 5, ../../sass/themes/flat.scss */
-  .easy-field.text {
+  .easy-field.text, .easy-field.textarea {
     padding: 10px;
     border: 1px solid #ccc;
     display: block;
     border-radius: 6px;
     outline: none; }
     /* line 12, ../../sass/themes/flat.scss */
-    .easy-field.text .placeholder {
+    .easy-field.text .placeholder, .easy-field.textarea .placeholder {
       color: #ccc; }
-  /* line 17, ../../sass/themes/flat.scss */
+    /* line 16, ../../sass/themes/flat.scss */
+    .easy-field.text:focus, .easy-field.textarea:focus {
+      border-color: #2980b9; }
+  /* line 21, ../../sass/themes/flat.scss */
+  .easy-field.text {
+    white-space: nowrap;
+    overflow: hidden; }
+    /* line 25, ../../sass/themes/flat.scss */
+    .easy-field.text br {
+      display: none; }
+    /* line 29, ../../sass/themes/flat.scss */
+    .easy-field.text * {
+      display: inline;
+      white-space: nowrap; }
+  /* line 36, ../../sass/themes/flat.scss */
+  .easy-field.textarea {
+    height: 200px;
+    overflow: auto; }
+  /* line 41, ../../sass/themes/flat.scss */
   .easy-field.select-one {
+    position: relative;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
     display: block; }
-    /* line 24, ../../sass/themes/flat.scss */
+    /* line 49, ../../sass/themes/flat.scss */
     .easy-field.select-one:hover ul {
       display: block; }
-    /* line 29, ../../sass/themes/flat.scss */
+    /* line 54, ../../sass/themes/flat.scss */
     .easy-field.select-one ul {
-      margin-top: 10px;
-      display: none; }
-      /* line 33, ../../sass/themes/flat.scss */
+      margin-top: 7px;
+      display: none;
+      position: absolute;
+      background: white;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-top: 0;
+      margin-left: -11px;
+      border-radius: 0px 0px 6px 6px; }
+      /* line 65, ../../sass/themes/flat.scss */
       .easy-field.select-one ul li {
         padding-left: 10px;
-        margin-bottom: 2px;
+        margin: 10px;
         cursor: pointer; }
-        /* line 38, ../../sass/themes/flat.scss */
+        /* line 70, ../../sass/themes/flat.scss */
         .easy-field.select-one ul li:hover, .easy-field.select-one ul li.selected {
-          background: #eee;
+          color: white;
+          background: #3498db;
           border-radius: 6px; }
+  /* line 79, ../../sass/themes/flat.scss */
+  .easy-field.radio {
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 100%;
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    margin-bottom: -5px;
+    box-shadow: inset 0px 0px 1px 10px white;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out; }
+    /* line 94, ../../sass/themes/flat.scss */
+    .easy-field.radio.selected {
+      background: #3498db;
+      box-shadow: inset 0px 0px 1px 3px white; }
